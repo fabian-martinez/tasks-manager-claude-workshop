@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # auto-commit.sh
-# Intended to be run as a Stop hook to automate branching and committing at the end of a session if there are changes.
-# It reads JSON input from stdin (for the Stop hook context)
+# Accepts a commit message as the first parameter.
+# It handles branching and committing code changes.
+
+COMMIT_MESSAGE=${1:-"chore: automated commit by Claude Code workflow"}
 
 # Check if there are changes in git
 if [[ -z $(git status -s) ]]; then
   # No changes, exit gracefully
-  echo "{\"hookSpecificOutput\": {\"hookEventName\": \"Stop\", \"additionalContext\": \"No changes to commit. Exiting session cleanly.\"}}"
+  echo "No changes to commit. Exiting gracefully."
   exit 0
 fi
 
@@ -16,7 +18,7 @@ git checkout -b "$BRANCH_NAME" > /dev/null 2>&1
 
 # Add all files and commit
 git add .
-git commit -m "Automated commit by Claude Code workflow: implemented task features" > /dev/null 2>&1
+git commit -m "$COMMIT_MESSAGE" > /dev/null 2>&1
 
-echo "{\"hookSpecificOutput\": {\"hookEventName\": \"Stop\", \"additionalContext\": \"Changes were automatically committed to branch $BRANCH_NAME.\"}}"
+echo "Changes were automatically committed to branch $BRANCH_NAME with message: $COMMIT_MESSAGE"
 exit 0

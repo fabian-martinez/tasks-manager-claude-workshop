@@ -24,8 +24,9 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "bash .claude/scripts/auto-commit.sh"
+            "type": "agent",
+            "prompt": "Evaluate if Claude should stop. Check if there are modified, added, or deleted files. If there are changes:\n1) Read 'CONVENTIONAL_COMMITS.md'.\n2) Generate a valid commit message according to the convention based on the changes you made in the session.\n3) Execute the script `bash .claude/scripts/auto-commit.sh \"<generated commit message>\"`.\n\nAfter committing (or if there are no changes), respond with JSON: {\"ok\": true} to allow stopping. Context: $ARGUMENTS",
+            "timeout": 120
           }
         ]
       }
