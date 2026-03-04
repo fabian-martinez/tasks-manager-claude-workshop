@@ -74,3 +74,8 @@ local.properties
 
 # Claude Code memory (don't include in git)
 .claude/
+!.claude/
+.claude/*
+!.claude/settings.json
+!.claude/scripts/
+!.claude/skills/

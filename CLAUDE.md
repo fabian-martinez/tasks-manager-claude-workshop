@@ -182,10 +182,10 @@ curl http://localhost:8080/api/comments
 ### Trigger Commands
 Los siguientes comandos activan automatización específica:
 
-- `"Implementar TASK-XXX"` → Activa análisis de Jira + plan de implementación
-- `"Analizar impacto de..."` → Activa análisis profundo de código
-- `"Refactorizar..."` → Activa análisis de arquitectura + plan de refactoring
-- `"Agregar tests para..."` → Activa generación de tests específicos
+- `"Implementar TASK-XXX"` → Activa análisis de Jira a través del Hook `UserPromptSubmit` (el cual carga automáticamente la historia).
+- Usar `/brainstorming` → Claude Code analizará la base de datos y propondrá una implementación arquitectónica.
+- Usar `/implement-feature` → Claude Code comenzará secuencialmente a crear Modelos, DTOs, Repositorios, Servicios y Controladores.
+- `"Agregar tests para..."` → Activa generación de tests específicos. Cuando la tarea termine, el hook `TaskCompleted` ejecutará pruebas y las verificará. Al finalizar todo, el hook `Stop` guardará automáticamente en Git.
 
 ### Auto-Validations
 Claude Code ejecutará automáticamente:
